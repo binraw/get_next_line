@@ -6,7 +6,7 @@
 /*   By: rtruvelo <rtruvelo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:46:52 by rtruvelo          #+#    #+#             */
-/*   Updated: 2023/11/30 15:47:51 by rtruvelo         ###   ########.fr       */
+/*   Updated: 2023/12/01 12:59:09 by rtruvelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,35 @@ void	*ft_calloc(size_t num, size_t size)
 		i++;
 	}
 	return (pointer);
+}
+
+size_t	ft_strlcpy(char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (n > 0)
+	{
+		while (s2[i] != '\0' && i < (n - 1))
+		{
+			s1[i] = s2[i];
+			i++;
+		}
+		s1[i] = 0;
+	}
+	while (s2[i] != '\0')
+		i++;
+	return (i);
+}
+
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
 }
