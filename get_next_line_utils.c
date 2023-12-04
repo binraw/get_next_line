@@ -6,13 +6,16 @@
 /*   By: rtruvelo <rtruvelo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:46:52 by rtruvelo          #+#    #+#             */
-/*   Updated: 2023/12/01 12:59:09 by rtruvelo         ###   ########.fr       */
+/*   Updated: 2023/12/04 10:11:09 by rtruvelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "get_next_line.h"
-
+char	*ft_strdup(const char *source);
+void	*ft_calloc(size_t num, size_t size);
+char	*ft_strjoin(char const *s1, char const *s2);
+size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *string, int searchedChar)
 {
 	size_t	i;
@@ -60,24 +63,54 @@ void	*ft_calloc(size_t num, size_t size)
 	return (pointer);
 }
 
-size_t	ft_strlcpy(char *s1, const char *s2, size_t n)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	i;
+	size_t	y;
+	size_t	x;
+	char	*dest;
 
-	i = 0;
-	if (n > 0)
-	{
-		while (s2[i] != '\0' && i < (n - 1))
-		{
-			s1[i] = s2[i];
-			i++;
-		}
-		s1[i] = 0;
-	}
-	while (s2[i] != '\0')
-		i++;
-	return (i);
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
+	i = ft_strlen(s1) + ft_strlen(s2)+ 1;
+	x = 0;
+	y = 0;
+	dest = malloc(sizeof(char) * i);
+	if (!dest)
+		return (NULL);
+	while (s1[y] != '\0')
+		dest[x++] = s1[y++];
+	y = 0;
+	while (s2[y] != '\0')
+		dest[x++] = s2[y++];
+	dest[x] = '\0';
+	return (dest);
 }
+char	*ft_strdup(const char *source)
+{
+	size_t	i;
+	size_t	y;
+	char	*pointer;
+
+	y = 0;
+	i = ft_strlen(source) + 1;
+	pointer = malloc(i * sizeof(char));
+	if (!pointer)
+		return (NULL);
+	while (y < i)
+	{
+		pointer[y] = source[y];
+		y++;
+	}
+	pointer[y] = '\0';
+	return (pointer);
+}
+
+
 
 size_t	ft_strlen(const char *str)
 {
