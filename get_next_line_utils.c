@@ -6,7 +6,7 @@
 /*   By: rtruvelo <rtruvelo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:46:52 by rtruvelo          #+#    #+#             */
-/*   Updated: 2023/12/04 10:11:09 by rtruvelo         ###   ########.fr       */
+/*   Updated: 2023/12/05 16:13:41 by rtruvelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	*ft_strdup(const char *source);
 void	*ft_calloc(size_t num, size_t size);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *str);
+
 char	*ft_strchr(const char *string, int searchedChar)
 {
 	size_t	i;
@@ -88,6 +89,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (s2[y] != '\0')
 		dest[x++] = s2[y++];
 	dest[x] = '\0';
+	free((char*)s1);
 	return (dest);
 }
 char	*ft_strdup(const char *source)

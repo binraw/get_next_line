@@ -6,7 +6,7 @@
 /*   By: rtruvelo <rtruvelo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 13:59:11 by rtruvelo          #+#    #+#             */
-/*   Updated: 2023/12/05 13:45:20 by rtruvelo         ###   ########.fr       */
+/*   Updated: 2023/12/05 16:23:31 by rtruvelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,13 @@ char *get_next_line(int fd)
         buffer = ft_strjoin(buffer,str);
     }
     len = cut_lign(buffer);
-    // read(fd, str , BUFFER_SIZE);
-	// str = ft_strjoin(buffer, str);
-    // len = cut_lign(str);
-    
     finaly = ft_calloc(len + 1 , sizeof(char));
     if (!str)
         return (NULL);
-    // ft_strlcpy(finaly,str,len);
     ft_strlcpy(finaly,buffer,len);
 	finaly[len + 1] = '\0';
-	// buflen = ft_strlen( str + len + 1);
-    buflen = ft_strlen( buffer + len + 1);
-    // buffer = NULL;
-	// buffer = ft_strjoin(buffer,str + len + 1);
-    buffer = ft_strjoin(buffer,buffer + len + 1);
-
+    buflen = ft_strlen(buffer + len + 1);
+    buffer = ft_strjoin(NULL, buffer + len + 1);
 	buffer[buflen + 1] = '\0';
     if (str != NULL)
 	     free(str);
@@ -76,10 +67,8 @@ char *get_next_line(int fd)
 
 size_t    cut_lign(char *str)
 {
-    size_t  len;
     size_t  i;
 
-len = 0;
     i = 0;
  
         while(str[i] != '\n' && str[i] != '\0')
@@ -107,26 +96,26 @@ size_t	ft_strlcpy(char *s1, const char *s2, size_t n)
 }
 
 
-int main(void)
-{
-     int fd;
-     int i;
-     char *result;
+// int main(void)
+// {
+//      int fd;
+//      int i;
+//      char *result;
 
-     i = 0;
+//      i = 0;
     
-    fd = open("fichier.txt", O_RDONLY);
-    while (i != 4)
-    {
-        result =  get_next_line(fd);
-        printf("%s\n", result);
-        i++;
-        // free(result);
-    }
-    // free(get_next_line(fd));
+//     fd = open("fichier.txt", O_RDONLY);
+//     while (i != 4)
+//     {
+//         result =  get_next_line(fd);
+//         printf("%s\n", result);
+//         i++;
+//         // free(result);
+//     }
+//     // free(get_next_line(fd));
     
-	// printf("%s\n", get_next_line(fd));
-	// printf("%s\n", get_next_line(fd));
+// 	// printf("%s\n", get_next_line(fd));
+// 	// printf("%s\n", get_next_line(fd));
     
-	 close(fd);
-}
+// 	 close(fd);
+// }
