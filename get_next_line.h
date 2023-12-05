@@ -6,7 +6,7 @@
 /*   By: rtruvelo <rtruvelo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:23:31 by rtruvelo          #+#    #+#             */
-/*   Updated: 2023/12/04 10:11:33 by rtruvelo         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:55:26 by rtruvelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-# define BUFFER_SIZE 1000
+#include <unistd.h>
+
+# define BUFFER_SIZE 1
 
 char	*ft_strchr(const char *string, int searchedChar);
 void	*ft_calloc(size_t num, size_t size);
