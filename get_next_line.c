@@ -6,7 +6,7 @@
 /*   By: rtruvelo <rtruvelo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 13:59:11 by rtruvelo          #+#    #+#             */
-/*   Updated: 2023/12/06 12:26:29 by rtruvelo         ###   ########.fr       */
+/*   Updated: 2023/12/06 14:50:50 by rtruvelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ char *get_next_line(int fd)
     size_t		len;
 
     len = 1;
+    if (!buffer)
+    {
+        buffer = ft_calloc(1,1);
+        buffer[0] = '\0';
+    }
     str = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
     if (!str)
         return (NULL);
@@ -42,6 +47,7 @@ char *get_next_line(int fd)
     if(len == 0)
     {
         free(str);
+        free(buffer);
         return ("(null)");
     }
     buflen = ft_strlen(buffer + len + 1);
@@ -52,30 +58,25 @@ char *get_next_line(int fd)
 	     free(str);
     return (finaly);
 }
-// char *str_egaln(char *str)
-// {
-//     int i;
 
-//     i = 0;
-//     if (str[i] == '\n')
-//         return ("\n");
-//     return ("\n");
-// }
 char  *finaly_str(char *buffer, size_t len)
 {
    char *finaly;
-   int i;
-
-   i = 0;
    
-    finaly = ft_calloc(len + 1 , sizeof(char));
+    finaly = ft_calloc(len + 2 , sizeof(char));
     if (!finaly)
         return (NULL);
     // if(!buffer)
     //     return ("(null)");
     ft_strlcpy(finaly, buffer, len + 1); // quand cest la derniere ligne rajoute le dernier carac en double ?
-    if(!finaly)
-        return ("(null)");
+    // if(!finaly)
+    //     return ("(null)");
+    // if(ft_strlen(buffer) < len)
+    // {
+    finaly[len + 1] = '\0';
+    // free(buffer);
+    // }
+    if(ft_strlen(buffer) > len)
     finaly[len] = '\n';
     return (finaly);
 }
@@ -121,7 +122,7 @@ int main(void)
     
     fd = open("fichier.txt", O_RDONLY);
     // fd = open("null.txt", O_RDONLY);
-    while (i != 500)
+    while (i != 6)
     {
         result =  get_next_line(fd);
         printf("%s", result);
