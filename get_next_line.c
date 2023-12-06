@@ -6,7 +6,7 @@
 /*   By: rtruvelo <rtruvelo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 13:59:11 by rtruvelo          #+#    #+#             */
-/*   Updated: 2023/12/06 14:50:50 by rtruvelo         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:09:44 by rtruvelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ char *get_next_line(int fd)
     size_t		len;
 
     len = 1;
+    if (!fd)
+        return (NULL);
     if (!buffer)
     {
         buffer = ft_calloc(1,1);
@@ -48,14 +50,12 @@ char *get_next_line(int fd)
     {
         free(str);
         free(buffer);
-        return ("(null)");
+        return (NULL);
     }
-    buflen = ft_strlen(buffer + len + 1);
-    // if(!buffer)
-    //     return ("(null)");
+    buflen = ft_strlen(buffer + len);
     buffer = ft_strjoin(NULL, buffer + len + 1);
-	buffer[buflen] = '\0';
-	     free(str);
+	buffer[buflen - 1] = '\0';
+	free(str);
     return (finaly);
 }
 
@@ -66,16 +66,9 @@ char  *finaly_str(char *buffer, size_t len)
     finaly = ft_calloc(len + 2 , sizeof(char));
     if (!finaly)
         return (NULL);
-    // if(!buffer)
-    //     return ("(null)");
     ft_strlcpy(finaly, buffer, len + 1); // quand cest la derniere ligne rajoute le dernier carac en double ?
-    // if(!finaly)
-    //     return ("(null)");
-    // if(ft_strlen(buffer) < len)
-    // {
     finaly[len + 1] = '\0';
-    // free(buffer);
-    // }
+ 
     if(ft_strlen(buffer) > len)
     finaly[len] = '\n';
     return (finaly);
@@ -86,9 +79,10 @@ size_t    cut_lign(char *str)
     size_t  i;
 
     i = 0;
- 
-        while(str[i] != '\n' && str[i] != '\0')
-            i++;
+    if (!str)
+        return (0);
+    while(str[i] != '\n' && str[i] != '\0')
+         i++;
     
     return (i);
 }
@@ -127,7 +121,7 @@ int main(void)
         result =  get_next_line(fd);
         printf("%s", result);
         i++;
-        // free(result);
+        free(result);
     }
     // free(get_next_line(fd));
     
