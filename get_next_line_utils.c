@@ -6,7 +6,7 @@
 /*   By: rtruvelo <rtruvelo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:46:52 by rtruvelo          #+#    #+#             */
-/*   Updated: 2023/12/06 17:08:35 by rtruvelo         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:11:55 by rtruvelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (s2[y] != '\0')
 		dest[x++] = s2[y++];
 	dest[x] = '\0';
-	if(s1)
-		free((char*)s1);
-	// if(s2)
-	// 	free((char*)s2);
 	return (dest);
 }
 char	*ft_strdup(const char *source)
@@ -113,6 +109,7 @@ char	*ft_strdup(const char *source)
 		pointer[y] = source[y];
 		y++;
 	}
+		// free((char*)source);
 	 pointer[y] = '\0';
 	return (pointer);
 }

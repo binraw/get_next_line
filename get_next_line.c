@@ -6,7 +6,7 @@
 /*   By: rtruvelo <rtruvelo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 13:59:11 by rtruvelo          #+#    #+#             */
-/*   Updated: 2023/12/06 17:09:44 by rtruvelo         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:14:58 by rtruvelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ char *get_next_line(int fd)
     char		*str;
     char		*finaly;
     static char	*buffer;
-    size_t		buflen;
+    char		*temp;
     size_t		len;
 
     len = 1;
-    if (!fd)
+    if (fd < 0 || BUFFER_SIZE <= 0 || read(fd,0,0) < 0)
         return (NULL);
     if (!buffer)
     {
@@ -37,24 +37,33 @@ char *get_next_line(int fd)
     str = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
     if (!str)
         return (NULL);
-    while ( len  > 0  && (!ft_strchr(str,'\n')))
+    while ( len  != 0  && (!ft_strchr(str,'\n')))
     {
         len = read(fd, str, BUFFER_SIZE);
-        str[len] = '\0';
-        buffer = ft_strjoin(buffer,str);
+        // if (len > 0)
+        if (len == -1)
+        {
+            free(str);
+            return (NULL);
+        }
+            str[len] = '\0';
+        
+        temp = ft_strjoin(buffer, str);
+        free(buffer);
+        buffer = ft_strdup(temp);
+        free(temp);
+        // buffer = ft_strdup(temp);
+        // free(temp);
     }
     len = 0;
     len = cut_lign(buffer);
     finaly = finaly_str(buffer, len);
-    if(len == 0)
+    if (len > 0)
+        buffer = ft_strdup(buffer + len + 1);
+    else
     {
-        free(str);
         free(buffer);
-        return (NULL);
     }
-    buflen = ft_strlen(buffer + len);
-    buffer = ft_strjoin(NULL, buffer + len + 1);
-	buffer[buflen - 1] = '\0';
 	free(str);
     return (finaly);
 }
@@ -66,8 +75,8 @@ char  *finaly_str(char *buffer, size_t len)
     finaly = ft_calloc(len + 2 , sizeof(char));
     if (!finaly)
         return (NULL);
-    ft_strlcpy(finaly, buffer, len + 1); // quand cest la derniere ligne rajoute le dernier carac en double ?
-    finaly[len + 1] = '\0';
+    ft_strlcpy(finaly, buffer, len + 1);
+    // finaly[len + 1] = '\0';
  
     if(ft_strlen(buffer) > len)
     finaly[len] = '\n';
