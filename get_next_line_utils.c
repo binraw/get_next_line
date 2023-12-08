@@ -6,7 +6,7 @@
 /*   By: rtruvelo <rtruvelo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:46:52 by rtruvelo          #+#    #+#             */
-/*   Updated: 2023/12/07 16:11:55 by rtruvelo         ###   ########.fr       */
+/*   Updated: 2023/12/08 11:06:41 by rtruvelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	i = ft_strlen(s1) + ft_strlen(s2);
 	x = 0;
 	y = 0;
-	dest = malloc(sizeof(char) * (i + 1));
+	dest = malloc(sizeof(char) * (i + 2));
 	if (!dest)
 		return (NULL);
 	while (s1[y] != '\0')
