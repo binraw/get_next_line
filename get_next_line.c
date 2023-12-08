@@ -6,7 +6,7 @@
 /*   By: rtruvelo <rtruvelo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 13:59:11 by rtruvelo          #+#    #+#             */
-/*   Updated: 2023/12/07 16:14:58 by rtruvelo         ###   ########.fr       */
+/*   Updated: 2023/12/08 10:57:57 by rtruvelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,25 @@ char *get_next_line(int fd)
     while ( len  != 0  && (!ft_strchr(str,'\n')))
     {
         len = read(fd, str, BUFFER_SIZE);
-        // if (len > 0)
-        if (len == -1)
-        {
-            free(str);
-            return (NULL);
-        }
             str[len] = '\0';
         
         temp = ft_strjoin(buffer, str);
         free(buffer);
         buffer = ft_strdup(temp);
-        free(temp);
-        // buffer = ft_strdup(temp);
-        // free(temp);
     }
     len = 0;
     len = cut_lign(buffer);
     finaly = finaly_str(buffer, len);
     if (len > 0)
-        buffer = ft_strdup(buffer + len + 1);
+    {
+        free(buffer);
+        buffer = ft_strdup(temp + len + 1);
+        free(temp);
+    }
     else
     {
         free(buffer);
+        free(temp);
     }
 	free(str);
     return (finaly);
