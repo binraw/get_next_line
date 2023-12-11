@@ -6,7 +6,7 @@
 /*   By: rtruvelo <rtruvelo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:46:52 by rtruvelo          #+#    #+#             */
-/*   Updated: 2023/12/11 16:06:27 by rtruvelo         ###   ########.fr       */
+/*   Updated: 2023/12/11 16:49:23 by rtruvelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*ft_strjoin(char  *s1, char  *s2)
 	while (s1[y] != '\0')
 		dest[x++] = s1[y++];
 	y = 0;
-	while (s2[y] != '\0' /*|| s2[y] != '\n'*/)
+	while (s2[y] != '\0' /*&& s2[y] != '\n'*/)
 		dest[x++] = s2[y++];
 	dest[x] = '\0';
 	free(s1);
