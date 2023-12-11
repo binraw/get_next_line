@@ -6,7 +6,7 @@
 /*   By: rtruvelo <rtruvelo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 13:59:11 by rtruvelo          #+#    #+#             */
-/*   Updated: 2023/12/08 16:10:34 by rtruvelo         ###   ########.fr       */
+/*   Updated: 2023/12/11 14:38:22 by rtruvelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,11 @@ char *get_next_line(int fd)
     str = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
     if (!str)
         return (NULL);
-    while ( /*len  != 0  && */((!ft_strchr(str,'\n'))))
+    while (len > 0)
     {
-        
         len = read(fd, str, BUFFER_SIZE);
-        str[len] = '\0';
-        // if (buffer && len == 0)
-        //     break ;
-        
-        if (len == 0)
+        str[len] = '\0';   
+        if (len == 0 && !buffer)
         {
             free(str);
             // free(buffer);
@@ -48,11 +44,10 @@ char *get_next_line(int fd)
         }
         if (!buffer)
             buffer = ft_calloc(1,1);
-
         temp = ft_strjoin(buffer, str);
-        free(buffer);
+        //  free(buffer);   //tout fonctionne avec ca en moins mais des problemes de leak
         buffer = ft_strdup(temp);
-        if (ft_strlen(buffer) == 1 )
+        if (ft_strchr(str,'\n'))
             break ;
     }
     len = 0;
@@ -61,9 +56,6 @@ char *get_next_line(int fd)
     if (len > 0 && len > 1)
     {
         free(buffer);
-        if ((temp + len) == NULL)
-        buffer = ft_strdup(temp + len);
-       
         buffer = ft_strdup(temp + len + 1);
         free(temp);
     }
@@ -72,7 +64,7 @@ char *get_next_line(int fd)
         free(buffer);
         free(temp);
     }
-	free(str);
+	    free(str);
     return (finaly);
 }
 
@@ -84,8 +76,6 @@ char  *finaly_str(char *buffer, size_t len)
     if (!finaly)
         return (NULL);
     ft_strlcpy(finaly, buffer, len + 1);
-    // finaly[len + 1] = '\0';
- 
     if(ft_strlen(buffer) > len)
     finaly[len] = '\n';
     return (finaly);
@@ -123,29 +113,30 @@ size_t	ft_strlcpy(char *s1, const char *s2, size_t n)
 }
 
 
-// int main(void)
-// {
-//      int fd;
-//      int i;
-//      char *result;
+int main(void)
+{
+     int fd;
+     int i;
+     char *result;
 
-//      i = 0;
+     i = 0;
     
-//     fd = open("fichier.txt", O_RDONLY);
-//     // fd = open("41_no_nl", O_RDONLY);
-//     // fd = open("1char.txt", O_RDONLY);
-//     // fd = open("null.txt", O_RDONLY);
-//     while (i != 6)
-//     {
-//         result =  get_next_line(fd);
-//         printf("%s", result);
-//         i++;
-//         free(result);
-//     }
-//     // free(get_next_line(fd));
+    // fd = open("fichier.txt", O_RDONLY);
+    //  fd = open("test.txt", O_RDONLY);
+    fd = open("41_no_nl", O_RDONLY);
+    // fd = open("1char.txt", O_RDONLY);
+    // fd = open("null.txt", O_RDONLY);
+    while (i != 6)
+    {
+        result =  get_next_line(fd);
+        printf("%s", result);
+        i++;
+        free(result);
+    }
+    // free(get_next_line(fd));
     
-// 	// printf("%s\n", get_next_line(fd));
-// 	// printf("%s\n", get_next_line(fd));
+	// printf("%s\n", get_next_line(fd));
+	// printf("%s\n", get_next_line(fd));
     
-// 	 close(fd);
-// }
+	 close(fd);
+}

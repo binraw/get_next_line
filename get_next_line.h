@@ -6,7 +6,7 @@
 /*   By: rtruvelo <rtruvelo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:23:31 by rtruvelo          #+#    #+#             */
-/*   Updated: 2023/12/07 15:26:11 by rtruvelo         ###   ########.fr       */
+/*   Updated: 2023/12/11 14:11:28 by rtruvelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include <unistd.h>
 # ifndef BUFFER_SIZE
 
-# define BUFFER_SIZE 50
+# define BUFFER_SIZE 1
 
 # endif
 char *get_next_line(int fd);
