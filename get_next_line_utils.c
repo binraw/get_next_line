@@ -6,18 +6,18 @@
 /*   By: rtruvelo <rtruvelo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:46:52 by rtruvelo          #+#    #+#             */
-/*   Updated: 2023/12/08 11:06:41 by rtruvelo         ###   ########.fr       */
+/*   Updated: 2023/12/11 16:06:27 by rtruvelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "get_next_line.h"
-char	*ft_strdup(const char *source);
+char	*ft_strdup(char *source);
 void	*ft_calloc(size_t num, size_t size);
-char	*ft_strjoin(char const *s1, char const *s2);
-size_t	ft_strlen(const char *str);
+char	*ft_strjoin(char  *s1, char  *s2);
+size_t	ft_strlen(char *str);
 
-char	*ft_strchr(const char *string, int searchedChar)
+char	*ft_strchr(char *string, int searchedChar)
 {
 	size_t	i;
 	char	*p;
@@ -64,7 +64,7 @@ void	*ft_calloc(size_t num, size_t size)
 	return (pointer);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char  *s1, char  *s2)
 {
 	size_t	i;
 	size_t	y;
@@ -80,18 +80,19 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	i = ft_strlen(s1) + ft_strlen(s2);
 	x = 0;
 	y = 0;
-	dest = malloc(sizeof(char) * (i + 2));
+	dest = malloc(sizeof(char) * (i + 1));
 	if (!dest)
 		return (NULL);
 	while (s1[y] != '\0')
 		dest[x++] = s1[y++];
 	y = 0;
-	while (s2[y] != '\0')
+	while (s2[y] != '\0' /*|| s2[y] != '\n'*/)
 		dest[x++] = s2[y++];
 	dest[x] = '\0';
+	free(s1);
 	return (dest);
 }
-char	*ft_strdup(const char *source)
+char	*ft_strdup(char *source)
 {
 	size_t	i;
 	size_t	y;
@@ -116,7 +117,7 @@ char	*ft_strdup(const char *source)
 
 
 
-size_t	ft_strlen(const char *str)
+size_t	ft_strlen(char *str)
 {
 	size_t	i;
 

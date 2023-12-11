@@ -6,7 +6,7 @@
 /*   By: rtruvelo <rtruvelo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:23:31 by rtruvelo          #+#    #+#             */
-/*   Updated: 2023/12/11 14:11:28 by rtruvelo         ###   ########.fr       */
+/*   Updated: 2023/12/11 16:34:47 by rtruvelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@
 #include <unistd.h>
 # ifndef BUFFER_SIZE
 
-# define BUFFER_SIZE 1
+# define BUFFER_SIZE 1000
 
 # endif
 char *get_next_line(int fd);
-char	*ft_strchr(const char *string, int searchedChar);
+char	*ft_strchr( char *string, int searchedChar);
 void	*ft_calloc(size_t num, size_t size);
-char	*ft_strdup(const char *source);
-char	*ft_strjoin(char const *s1, char const *s2);
-size_t	ft_strlen(const char *str);
+char	*ft_strdup( char *source);
+char	*ft_strjoin(char  *s1, char  *s2);
+size_t	ft_strlen( char *str);
 #endif
