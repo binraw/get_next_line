@@ -6,7 +6,7 @@
 /*   By: rtruvelo <rtruvelo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:46:52 by rtruvelo          #+#    #+#             */
-/*   Updated: 2023/12/12 12:59:38 by rtruvelo         ###   ########.fr       */
+/*   Updated: 2023/12/12 15:05:03 by rtruvelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,6 @@ char	*ft_strchr(char *string, int searchedChar)
 	if (search == '\0')
 		return (NULL);
 	return (0);
-}
-
-void	*ft_calloc(size_t num, size_t size)
-{
-	char	*pointer;
-	size_t	i;
-
-	i = 0;
-	if (!num || !size)
-		return (malloc(0));
-	if (SIZE_MAX / num < size)
-		return (NULL);
-	pointer = malloc(num * size);
-	if (!pointer)
-		return (NULL);
-	while (i < (num * size))
-	{
-		pointer[i] = 0;
-		i++;
-	}
-	return (pointer);
 }
 
 char	*ft_strjoin(char  *s1, char  *s2)
