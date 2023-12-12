@@ -6,16 +6,15 @@
 /*   By: rtruvelo <rtruvelo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:46:52 by rtruvelo          #+#    #+#             */
-/*   Updated: 2023/12/12 15:05:03 by rtruvelo         ###   ########.fr       */
+/*   Updated: 2023/12/12 16:28:35 by rtruvelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "get_next_line.h"
+
 char	*ft_strdup(char *source);
-void	*ft_calloc(size_t num, size_t size);
-char	*ft_strjoin(char  *s1, char  *s2);
-size_t	ft_strlen(char *str);
+char	*ft_strjoin(char	*s1, char	*s2);
+size_t	ft_strlen(char	*str);
 
 char	*ft_strchr(char *string, int searchedChar)
 {
@@ -43,7 +42,7 @@ char	*ft_strchr(char *string, int searchedChar)
 	return (0);
 }
 
-char	*ft_strjoin(char  *s1, char  *s2)
+char	*ft_strjoin(char	*s1, char	*s2)
 {
 	size_t	i;
 	size_t	y;
@@ -65,13 +64,14 @@ char	*ft_strjoin(char  *s1, char  *s2)
 	while (s1[y] != '\0')
 		dest[x++] = s1[y++];
 	y = 0;
-	while (s2[y] != '\0' /*&& s2[y] != '\n'*/)
+	while (s2[y] != '\0')
 		dest[x++] = s2[y++];
 	dest[x] = '\0';
 	free(s1);
 	return (dest);
 }
-char	*ft_strdup(char *source)
+
+char	*ft_strdup(char	*source)
 {
 	size_t	i;
 	size_t	y;
@@ -89,12 +89,9 @@ char	*ft_strdup(char *source)
 		pointer[y] = source[y];
 		y++;
 	}
-		//free((char*)source);
-	 pointer[y] = '\0';
+	pointer[y] = '\0';
 	return (pointer);
 }
-
-
 
 size_t	ft_strlen(char *str)
 {
@@ -102,10 +99,29 @@ size_t	ft_strlen(char *str)
 
 	i = 0;
 	if (!str)
-        return (0);
+		return (0);
 	while (str[i] != '\0')
 	{
 		i++;
 	}
+	return (i);
+}
+
+size_t	ft_strlcpy(char *s1, char *s2, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	if (n > 0)
+	{
+		while (s2[i] != '\0' && i < (n - 1))
+		{
+			s1[i] = s2[i];
+			i++;
+		}
+		s1[i] = 0;
+	}
+	while (s2[i] != '\0')
+		i++;
 	return (i);
 }
