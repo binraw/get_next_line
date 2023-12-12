@@ -6,7 +6,7 @@
 /*   By: rtruvelo <rtruvelo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 13:59:11 by rtruvelo          #+#    #+#             */
-/*   Updated: 2023/12/12 15:31:47 by rtruvelo         ###   ########.fr       */
+/*   Updated: 2023/12/12 15:59:57 by rtruvelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,12 @@ char *get_next_line(int fd)
     char        *str;
     static char	buffer[BUFFER_SIZE + 1] = "\0";
     size_t		len;
-    ssize_t     re;
 
     if (fd < 0 || BUFFER_SIZE <= 0 || read(fd,0,0) < 0)
         {
-            re = 0;
-            while (buffer[re] != '\0')
-                buffer[re++] = '\0';
+            len = 0;
+            while (buffer[len] != '\0')
+                buffer[len++] = '\0';
             return (NULL);
         }
         str = create_str(buffer, fd);
@@ -55,8 +54,7 @@ char *create_str(char *buffer, int fd)
     ssize_t re;
 
     re = 1;
-    
-        str = ft_strdup(buffer);
+    str = ft_strdup(buffer);
     if (!str)
         return (NULL);
     while (re > 0)
