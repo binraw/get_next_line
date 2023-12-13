@@ -6,7 +6,7 @@
 /*   By: rtruvelo <rtruvelo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:46:52 by rtruvelo          #+#    #+#             */
-/*   Updated: 2023/12/12 16:28:35 by rtruvelo         ###   ########.fr       */
+/*   Updated: 2023/12/13 12:01:13 by rtruvelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 char	*ft_strdup(char *source);
 char	*ft_strjoin(char	*s1, char	*s2);
 size_t	ft_strlen(char	*str);
+char	*ft_concate_str(char	*s1, char	*s2, char *dest);
 
 char	*ft_strchr(char *string, int searchedChar)
 {
@@ -44,9 +45,6 @@ char	*ft_strchr(char *string, int searchedChar)
 
 char	*ft_strjoin(char	*s1, char	*s2)
 {
-	size_t	i;
-	size_t	y;
-	size_t	x;
 	char	*dest;
 
 	if (!s1 && !s2)
@@ -55,12 +53,22 @@ char	*ft_strjoin(char	*s1, char	*s2)
 		return (ft_strdup(s2));
 	if (!s2)
 		return (ft_strdup(s1));
-	i = ft_strlen(s1) + ft_strlen(s2);
+	dest = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!dest)
+	{
+		free(s1);
+		return (NULL);
+	}
+	return (ft_concate_str(s1, s2, dest));
+}
+
+char	*ft_concate_str(char	*s1, char	*s2, char *dest)
+{
+	size_t	y;
+	size_t	x;
+	
 	x = 0;
 	y = 0;
-	dest = malloc(sizeof(char) * (i + 1));
-	if (!dest)
-		return (NULL);
 	while (s1[y] != '\0')
 		dest[x++] = s1[y++];
 	y = 0;
@@ -107,21 +115,3 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-size_t	ft_strlcpy(char *s1, char *s2, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	if (n > 0)
-	{
-		while (s2[i] != '\0' && i < (n - 1))
-		{
-			s1[i] = s2[i];
-			i++;
-		}
-		s1[i] = 0;
-	}
-	while (s2[i] != '\0')
-		i++;
-	return (i);
-}

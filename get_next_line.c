@@ -6,7 +6,7 @@
 /*   By: rtruvelo <rtruvelo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 13:59:11 by rtruvelo          #+#    #+#             */
-/*   Updated: 2023/12/12 16:42:56 by rtruvelo         ###   ########.fr       */
+/*   Updated: 2023/12/13 15:34:40 by rtruvelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdio.h>
 
 size_t		cut_lign(char *str);
-size_t		ft_strlcpy(char *s1, char *s2, size_t n);
 char		*finaly_str(char *buffer, size_t len);
 void		*ft_memmove(void *dest, void *src, size_t n);
 char		*create_str(char *buffer, int fd);
@@ -30,7 +29,7 @@ char	*get_next_line(int fd)
 	{
 		len = 0;
 		while (buffer[len] != '\0')
-			buffer[len++] = '\0';
+			buffer[len++] = '\0';	
 		return (NULL);
 	}
 	str = create_str(buffer, fd);
@@ -40,7 +39,10 @@ char	*get_next_line(int fd)
 	len = cut_lign(str);
 	finaly = finaly_str(str, len);
 	if (ft_strlen(str) != len)
-		ft_memmove(buffer, str + len + 1, ft_strlen(str) - cut_lign(str));
+	{
+	// printf("%s\n", str);
+		ft_memmove(buffer, str + len + 1, ft_strlen(str ) - cut_lign(str));
+	}
 	else
 		buffer[0] = '\0';
 	free(str);
@@ -56,7 +58,7 @@ char	*create_str(char *buffer, int fd)
 	str = ft_strdup(buffer);
 	if (!str)
 		return (NULL);
-	while (re > 0)
+	while (re > 0 && (!ft_strchr(str, '\n')))
 	{
 		re = read(fd, buffer, BUFFER_SIZE);
 		if (re != 0)
@@ -70,8 +72,6 @@ char	*create_str(char *buffer, int fd)
 			str = ft_strjoin(str, buffer);
 		if (!str)
 			return (NULL);
-		if (ft_strchr(str, '\n'))
-			break ;
 	}
 	return (str);
 }
@@ -79,45 +79,50 @@ char	*create_str(char *buffer, int fd)
 char	*finaly_str(char *buffer, size_t len)
 {
 	char	*finaly;
+	size_t 	i;
 
-	finaly = malloc((len + 2) * sizeof(char));
+	i = 0;
+	finaly = malloc((len + 2) * sizeof(char)); // enlever +2 
 	if (!finaly)
 		return (NULL);
-	ft_strlcpy(finaly, buffer, len +1);
+	if (len + 1 > 0)
+	{
+		while (buffer[i] != '\0' && i < (len))
+		{
+			finaly[i] = buffer[i];
+			i++;
+		}
+		finaly[i] = 0;
+	}
 	if (ft_strlen(buffer) > len)
 		finaly[len] = '\n';
 	finaly[len + 1] = '\0';
 	return (finaly);
 }
 
-void	*ft_memmove(void	*dest, void	*src, size_t	n)
+void	*ft_memmove(void *dest, void *src, size_t n)
 {
-	size_t	i;
+	unsigned char	*destination;
+	unsigned char	*source;
 
-	if (!dest && !src)
-		return (0);
-	i = n - 1;
-	if (dest > src)
-	{
-		while (n--)
-		{
-			*(unsigned char *)(dest + i) = *(unsigned char *)(src + i);
-			i--;
-		}
+	if (dest == src || n == 0)
 		return (dest);
+	if (dest < src)
+	{
+		destination = (unsigned char *)dest;
+		source = (unsigned char *)src;
+		while (n--)
+			*destination++ = *source++;
 	}
 	else
 	{
-		i = 0;
-		while (i < n)
-		{
-			*(unsigned char *)(dest + i) = *(unsigned char *)(src + i);
-			i++;
-		}
-		return (dest);
+		destination = (unsigned char *)dest + (n - 1);
+		source = (unsigned char *)src + (n - 1);
+		while (n--)
+			*destination-- = *source--;
 	}
+	return (dest);
 }
-
 size_t	cut_lign(char *str)
 {
 	size_t	i;
@@ -129,29 +134,37 @@ size_t	cut_lign(char *str)
 		i++;
 	return (i);
 }
-// int main(void)
-// {
-//      int fd;
-//      int i;
-//      char *result;
-//      i = 0;
-//     // fd = open("fichier.txt", O_RDONLY);
-//     // fd = open("read_error.txt", O_RDONLY);
-//     // fd = open("multiple_line_no_nl", O_RDONLY);
-//     // fd = open("multiple_nl.txt", O_RDONLY);
-//     //  fd = open("test.txt", O_RDONLY);
-//     // fd = open("41_no_nl", O_RDONLY);
-//     fd = open("1char.txt", O_RDONLY);
-//     // fd = open("null.txt", O_RDONLY);
-//     while (i != 1)
-//     {
-//         result =  get_next_line(fd);
-//         printf("%s", result);
-//         i++;
-//         free(result);
-//     }
-//     // free(get_next_line(fd));
-// 	// printf("%s\n", get_next_line(fd));
-// 	// printf("%s\n", get_next_line(fd));
-// 	 close(fd);
-// }
+#include <time.h>
+int main(void)
+{
+     int fd;
+     int i;
+     char *result;
+     i = 0;
+    // fd = open("fichier.txt", O_RDONLY);
+    // fd = open("read_error.txt", O_RDONLY);
+    // fd = open("multiple_line_no_nl", O_RDONLY);
+    // fd = open("multiple_nl.txt", O_RDONLY);
+	//  fd = open("variable.txt", O_RDONLY);
+    //  fd = open("test.txt", O_RDONLY);
+    // fd = open("41_no_nl", O_RDONLY);
+    // fd = open("1char.txt", O_RDONLY);
+	// clock_t start_time = clock();
+	fd = open("bible.txt", O_RDONLY);
+    // fd = open("null.txt", O_RDONLY);
+    while (result != NULL)
+    {
+        result =  get_next_line(fd);
+        printf("%s", result);
+        i++;
+        free(result);
+    }
+	// clock_t end_time = clock();
+	// double cpu_time_used = ((double) (end_time - start_time));
+	
+	// printf("Temps d'execution : %f secondes \n", cpu_time_used);
+    // free(get_next_line(fd));
+	// printf("%s\n", get_next_line(fd));
+	// printf("%s\n", get_next_line(fd));
+	 close(fd);
+}
